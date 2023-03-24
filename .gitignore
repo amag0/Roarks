@@ -30,3 +30,7 @@
 *.exe
 *.out
 *.app
+/.vs
+/Roarks/x64/Debug
+/Roarks/.vs/Roarks
+/Roarks/Concept/x64/Debug
