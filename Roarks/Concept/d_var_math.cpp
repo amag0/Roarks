@@ -3,7 +3,7 @@
 #include <cmath>
 
 d_var pow(const d_var& base, double exponent) {
-    std::vector<int> result_dimensions(base.get_dimensions().size());
+    Dimension result_dimensions(base.get_dimensions().size());
     for (size_t i = 0; i < base.get_dimensions().size(); ++i) {
         result_dimensions[i] = base.get_dimensions()[i] * exponent;
     }
@@ -13,7 +13,7 @@ d_var pow(const d_var& base, double exponent) {
 }
 
 d_var sin(const d_var& x) {
-    if (x.get_dimensions() != std::vector<int>{0, 0, 0}) {
+    if (x.get_dimensions() != Dimension{0, 0, 0}) {
         throw std::runtime_error("Dimension mismatch in sin function");
     }
     std::stringstream ss;

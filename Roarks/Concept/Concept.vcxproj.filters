@@ -24,6 +24,15 @@
     <ClCompile Include="d_var_math.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="xl_var.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="StraightBeams.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Section.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="d_var.h">
@@ -33,6 +42,21 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="StraightBeams.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="dimensions.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="xl_var.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="n_var.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Section.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="EulerColumn.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

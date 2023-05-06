@@ -3,33 +3,23 @@
 #include <iostream>
 #include <string>
 #include <vector>
+#include "n_var.h"
+#include "dimensions.h"
 
-class n_var {
-public:
-    n_var(double value, const std::string& latex_symbol)
-        : value(value), latex_symbol(latex_symbol) {}
-
-    operator double() const {
-        return value;
-    }
-
-    const std::string& get_latex_symbol() const {
-        return latex_symbol;
-    }
-
-protected:
-    double value;
-    std::string latex_symbol;
-};
-
+/// <summary>
+/// Dimensioned Variable
+/// Stores a named variable with a dimension.
+/// </summary>
 class d_var : public n_var {
 public:
-    d_var(double value, const std::string& latex_symbol, const std::vector<int>& dimensions)
+    d_var(double value, const std::string& latex_symbol, const Dimension& dimensions)
         : n_var(value, latex_symbol), dimensions(dimensions) {}
     explicit d_var(double value);
-    const std::vector<int>& get_dimensions() const {
+    const Dimension& get_dimensions() const {
         return dimensions;
     }
+
+    d_var& operator=(const d_var& rhs);
 
     friend d_var operator+(const d_var& lhs, const d_var& rhs);
     friend d_var operator-(const d_var& lhs, const d_var& rhs);
@@ -37,7 +27,7 @@ public:
     friend d_var operator/(const d_var& lhs, const d_var& rhs);
 
 private:
-    std::vector<int> dimensions;
+    Dimension dimensions;
 };
 
 d_var operator+(const d_var& lhs, const d_var& rhs);

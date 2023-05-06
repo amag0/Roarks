@@ -3,6 +3,19 @@
 d_var::d_var(double value)
     : n_var(value, std::to_string(value)), dimensions({ 0, 0, 0 }) {}
 
+d_var& d_var::operator=(const d_var& rhs) {
+    if (this != &rhs) {
+        value = rhs.value;
+        dimensions = rhs.dimensions;
+
+        // Update latex_formula
+        latex_formula = latex_symbol + " = " + rhs.latex_symbol;
+
+        // Keep the latex_symbol unchanged
+    }
+    return *this;
+}
+
 d_var operator+(const d_var& lhs, const d_var& rhs) {
     if (lhs.dimensions != rhs.dimensions) {
         throw std::runtime_error("Dimension mismatch in addition operation");
@@ -18,7 +31,7 @@ d_var operator-(const d_var& lhs, const d_var& rhs) {
 }
 
 d_var operator*(const d_var& lhs, const d_var& rhs) {
-    std::vector<int> result_dimensions(lhs.dimensions.size());
+    Dimension result_dimensions(lhs.dimensions.size());
     for (size_t i = 0; i < lhs.dimensions.size(); ++i) {
         result_dimensions[i] = lhs.dimensions[i] + rhs.dimensions[i];
     }
@@ -26,7 +39,7 @@ d_var operator*(const d_var& lhs, const d_var& rhs) {
 }
 
 d_var operator/(const d_var& lhs, const d_var& rhs) {
-    std::vector<int> result_dimensions(lhs.dimensions.size());
+    Dimension result_dimensions(lhs.dimensions.size());
     for (size_t i = 0; i < lhs.dimensions.size(); ++i) {
         result_dimensions[i] = lhs.dimensions[i] - rhs.dimensions[i];
     }

@@ -1,0 +1,27 @@
+﻿  ConceptTests.cpp
+C:\Code\Roarks\Roarks\Concept\n_var.h(66,14): warning C4251: 'n_var::latex_symbol': class 'std::basic_string<char,std::char_traits<char>,std::allocator<char>>' needs to have dll-interface to be used by clients of class 'n_var'
+C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.34.31933\include\xstring(5294,17): message : see declaration of 'std::basic_string<char,std::char_traits<char>,std::allocator<char>>'
+C:\Code\Roarks\Roarks\Concept\n_var.h(67,14): warning C4251: 'n_var::latex_formula': class 'std::basic_string<char,std::char_traits<char>,std::allocator<char>>' needs to have dll-interface to be used by clients of class 'n_var'
+C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.34.31933\include\xstring(5294,17): message : see declaration of 'std::basic_string<char,std::char_traits<char>,std::allocator<char>>'
+C:\Code\Roarks\Roarks\Concept\n_var.h(70,7): warning C4273: 'operator +': inconsistent dll linkage
+C:\Code\Roarks\Roarks\Concept\n_var.h(53,33): message : see previous definition of '+'
+C:\Code\Roarks\Roarks\Concept\n_var.h(71,7): warning C4273: 'operator -': inconsistent dll linkage
+C:\Code\Roarks\Roarks\Concept\n_var.h(54,33): message : see previous definition of '-'
+C:\Code\Roarks\Roarks\Concept\n_var.h(72,7): warning C4273: 'operator *': inconsistent dll linkage
+C:\Code\Roarks\Roarks\Concept\n_var.h(55,33): message : see previous definition of '*'
+C:\Code\Roarks\Roarks\Concept\n_var.h(73,7): warning C4273: 'operator /': inconsistent dll linkage
+C:\Code\Roarks\Roarks\Concept\n_var.h(56,33): message : see previous definition of '/'
+C:\Code\Roarks\Roarks\Concept\n_var.h(76,14): warning C4273: 'operator ==': inconsistent dll linkage
+C:\Code\Roarks\Roarks\Concept\n_var.h(57,40): message : see previous definition of '=='
+C:\Code\Roarks\Roarks\Concept\n_var.h(77,14): warning C4273: 'operator !=': inconsistent dll linkage
+C:\Code\Roarks\Roarks\Concept\n_var.h(58,40): message : see previous definition of '!='
+C:\Code\Roarks\Roarks\Concept\n_var.h(78,14): warning C4273: 'operator <': inconsistent dll linkage
+C:\Code\Roarks\Roarks\Concept\n_var.h(59,40): message : see previous definition of '<'
+C:\Code\Roarks\Roarks\Concept\n_var.h(79,14): warning C4273: 'operator >': inconsistent dll linkage
+C:\Code\Roarks\Roarks\Concept\n_var.h(60,40): message : see previous definition of '>'
+C:\Code\Roarks\Roarks\Concept\n_var.h(80,14): warning C4273: 'operator <=': inconsistent dll linkage
+C:\Code\Roarks\Roarks\Concept\n_var.h(61,40): message : see previous definition of '<='
+C:\Code\Roarks\Roarks\Concept\n_var.h(81,14): warning C4273: 'operator >=': inconsistent dll linkage
+C:\Code\Roarks\Roarks\Concept\n_var.h(62,40): message : see previous definition of '>='
+     Creating library C:\Code\Roarks\Roarks\x64\Debug\ConceptTests.lib and object C:\Code\Roarks\Roarks\x64\Debug\ConceptTests.exp
+  ConceptTests.vcxproj -> C:\Code\Roarks\Roarks\x64\Debug\ConceptTests.dll
