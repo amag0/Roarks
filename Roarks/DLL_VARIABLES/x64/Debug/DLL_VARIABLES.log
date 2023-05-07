@@ -1,12 +1,6 @@
-﻿  n_var.cpp
+﻿  n_var_math.cpp
 C:\Code\Roarks\Roarks\Concept\n_var.h(66,14): warning C4251: 'n_var::latex_symbol': class 'std::basic_string<char,std::char_traits<char>,std::allocator<char>>' needs to have dll-interface to be used by clients of class 'n_var'
 C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.34.31933\include\xstring(5294,17): message : see declaration of 'std::basic_string<char,std::char_traits<char>,std::allocator<char>>'
 C:\Code\Roarks\Roarks\Concept\n_var.h(67,14): warning C4251: 'n_var::latex_formula': class 'std::basic_string<char,std::char_traits<char>,std::allocator<char>>' needs to have dll-interface to be used by clients of class 'n_var'
 C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.34.31933\include\xstring(5294,17): message : see declaration of 'std::basic_string<char,std::char_traits<char>,std::allocator<char>>'
-  n_var_math.cpp
-C:\Code\Roarks\Roarks\Concept\n_var.h(66,14): warning C4251: 'n_var::latex_symbol': class 'std::basic_string<char,std::char_traits<char>,std::allocator<char>>' needs to have dll-interface to be used by clients of class 'n_var'
-C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.34.31933\include\xstring(5294,17): message : see declaration of 'std::basic_string<char,std::char_traits<char>,std::allocator<char>>'
-C:\Code\Roarks\Roarks\Concept\n_var.h(67,14): warning C4251: 'n_var::latex_formula': class 'std::basic_string<char,std::char_traits<char>,std::allocator<char>>' needs to have dll-interface to be used by clients of class 'n_var'
-C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.34.31933\include\xstring(5294,17): message : see declaration of 'std::basic_string<char,std::char_traits<char>,std::allocator<char>>'
-  Generating Code...
   DLL_VARIABLES.vcxproj -> C:\Code\Roarks\Roarks\x64\Debug\DLL_VARIABLES.dll

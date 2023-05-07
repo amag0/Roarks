@@ -70,9 +70,6 @@ namespace ConceptTests
 			Assert::AreEqual(vI.get_latex_symbol().c_str(), SymbolI);
 			Assert::AreEqual(double(vI), I);
 		}
-		// add logarithm, exponential, trigonometric functions and the test methods 
-		// also e constant
-
 
 		TEST_METHOD(ComparisonOperator)
 		{
@@ -124,20 +121,115 @@ namespace ConceptTests
 			BoolVariable Comparison = sqrt(First) <= Second + n_var(1.0) / Third;
 			
 			bool ExpectedValue = sqrt(double(First)) <= double(Second) + 1.0 / double(Third);
-			const char* ExpectedSymbol = "\\sqrt{a} \\leq b + \\frac{1}{x}";
+			const char* ExpectedSymbol = "\\sqrt[2]{a} \\leq b + \\frac{1}{x}";
 
 			Assert::AreEqual(bool(Comparison), ExpectedValue);
 			Assert::AreEqual(Comparison.get_latex_symbol().c_str(), ExpectedSymbol);
 		}
 
-		// Other functions
-		// abs
-		// exp
-		// log
-		// sqrt
-		// ceil
-		// floor
-		// TODO: all the trigonometric functions
+		TEST_METHOD(OtherFunctions)
+		{
+			double dValue = -1.16;
+			double xValue = 2.18;
+			n_var d(dValue, "d");
+			n_var x(xValue, "x");
+
+			const char* ExpFunction = "e^{d}";
+			const char* LogFunction = "\\ln(x)";
+			const char* SqrtFunction = "\\sqrt[2]{x}";
+
+			Assert::AreEqual(exp(dValue), double(exp(d)));
+			Assert::AreEqual(log(xValue), double(log(x)));
+			Assert::AreEqual(sqrt(xValue), double(sqrt(x)));
+		
+			Assert::AreEqual(ExpFunction, exp(d).get_latex_symbol().c_str());
+			Assert::AreEqual(LogFunction, log(x).get_latex_symbol().c_str());
+			Assert::AreEqual(SqrtFunction, sqrt(x).get_latex_symbol().c_str());
+		}
+
+		TEST_METHOD(VerticalSymbols)
+		{
+			double dValue = -1.11;
+			n_var d(dValue, "d");
+
+			const char* AbsFunction = "\\lvert d \\rvert";
+			const char* CeilFunction = "\\lceil d \\rceil";
+			const char* FloorFunction = "\\lfloor d \\rfloor";
+		
+			Assert::AreEqual(abs(dValue), double(abs(d)));
+			Assert::AreEqual(ceil(dValue), double(ceil(d)));
+			Assert::AreEqual(floor(dValue), double(floor(d)));
+
+			Assert::AreEqual(AbsFunction, abs(d).get_latex_symbol().c_str());
+			Assert::AreEqual(CeilFunction, ceil(d).get_latex_symbol().c_str());
+			Assert::AreEqual(FloorFunction, floor(d).get_latex_symbol().c_str());
+		}
+		
+		TEST_METHOD(TrigonometricExpresions)
+		{
+			double alpha = 0.77;
+			n_var Angle(alpha, "\\alpha");
+			double x = 2.18;
+			double y = -0.6;
+			n_var xVar(x, "x");
+			n_var yVar(y, "y");
+
+			const char* SinSymbol = "\\sin(\\alpha)";
+			const char* CosSymbol = "\\cos(\\alpha)";
+			const char* TanSymbol = "\\tan(\\alpha)";
+			const char* ArcSinSymbol = "\\arcsin(\\frac{y}{x})";
+			const char* ArcCosSymbol = "\\arccos(\\frac{y}{x})";
+			const char* ArcTanSymbol = "\\arctan(\\frac{y}{x})";
+			const char* ArcTan2Symbol = "\\arctan(\\frac{y}{x})";
+
+			Assert::AreEqual(sin(alpha), double(sin(Angle)));
+			Assert::AreEqual(cos(alpha), double(cos(Angle)));
+			Assert::AreEqual(tan(alpha), double(tan(Angle)));
+			Assert::AreEqual(asin(y/x), double(asin(yVar/xVar)));
+			Assert::AreEqual(acos(y/x), double(acos(yVar/xVar)));
+			Assert::AreEqual(atan(y/x), double(atan(yVar/xVar)));
+			Assert::AreEqual(atan2(y,x), double(atan2(yVar, xVar)));
+
+			Assert::AreEqual(SinSymbol, sin(Angle).get_latex_symbol().c_str());
+			Assert::AreEqual(CosSymbol, cos(Angle).get_latex_symbol().c_str());
+			Assert::AreEqual(TanSymbol, tan(Angle).get_latex_symbol().c_str());
+			Assert::AreEqual(ArcSinSymbol, asin(yVar / xVar).get_latex_symbol().c_str());
+			Assert::AreEqual(ArcCosSymbol, acos(yVar / xVar).get_latex_symbol().c_str());
+			Assert::AreEqual(ArcTanSymbol, atan(yVar / xVar).get_latex_symbol().c_str());
+			Assert::AreEqual(ArcTan2Symbol, atan2(yVar, xVar).get_latex_symbol().c_str());
+		}
+
+		TEST_METHOD(HyperbolicTrigonometric)
+		{
+			double beta = 0.77;
+			double bValue = 3.11;
+			double cValue = 1.27;
+
+			n_var Angle(beta, "\\beta");
+			n_var b(bValue, "b");
+			n_var c(cValue, "c");
+
+			const char* SinH = "\\sinh(\\beta)";
+			const char* CosH = "\\cosh(\\beta)";
+			const char* TanH = "\\tanh(\\beta)";
+			const char* ArcSinH = "\\arcsinh(\\frac{b}{c})";
+			const char* ArcCosH = "\\arccosh(\\frac{b}{c})";
+			const char* ArcTanH = "\\arctanh(\\frac{c}{b})";
+
+			Assert::AreEqual(sinh(beta), double(sinh(Angle)));
+			Assert::AreEqual(cosh(beta), double(cosh(Angle)));
+			Assert::AreEqual(tanh(beta), double(tanh(Angle)));
+			Assert::AreEqual(asinh(bValue / cValue), double(asinh(b / c)));
+			Assert::AreEqual(acosh(bValue / cValue), double(acosh(b / c)));
+			Assert::AreEqual(atanh(cValue / bValue), double(atanh(c / b)));
+
+			Assert::AreEqual(SinH, sinh(Angle).get_latex_symbol().c_str());
+			Assert::AreEqual(CosH, cosh(Angle).get_latex_symbol().c_str());
+			Assert::AreEqual(TanH, tanh(Angle).get_latex_symbol().c_str());
+			Assert::AreEqual(ArcSinH, asinh(b / c).get_latex_symbol().c_str());
+			Assert::AreEqual(ArcCosH, acosh(b / c).get_latex_symbol().c_str());
+			Assert::AreEqual(ArcTanH, atanh(c / b).get_latex_symbol().c_str());
+		}
 		// TODO: test the AssignmentIf function
 	};
 }

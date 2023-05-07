@@ -23,5 +23,4 @@ C:\Code\Roarks\Roarks\Concept\n_var.h(80,14): warning C4273: 'operator <=': inco
 C:\Code\Roarks\Roarks\Concept\n_var.h(61,40): message : see previous definition of '<='
 C:\Code\Roarks\Roarks\Concept\n_var.h(81,14): warning C4273: 'operator >=': inconsistent dll linkage
 C:\Code\Roarks\Roarks\Concept\n_var.h(62,40): message : see previous definition of '>='
-     Creating library C:\Code\Roarks\Roarks\x64\Debug\ConceptTests.lib and object C:\Code\Roarks\Roarks\x64\Debug\ConceptTests.exp
   ConceptTests.vcxproj -> C:\Code\Roarks\Roarks\x64\Debug\ConceptTests.dll
