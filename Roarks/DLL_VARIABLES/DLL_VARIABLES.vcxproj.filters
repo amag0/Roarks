@@ -27,6 +27,9 @@
     <ClInclude Include="n_var_math.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="AsignmentIf.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="pch.cpp">

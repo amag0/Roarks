@@ -2,6 +2,7 @@
 #include "CppUnitTest.h"
 #include "../Concept/n_var.h"
 #include "../DLL_VARIABLES/n_var_math.h"
+#include "../DLL_VARIABLES/AsignmentIf.h"
 #define _USE_MATH_DEFINES
 #include <math.h>
 
@@ -50,6 +51,7 @@ namespace ConceptTests
 		// MultiplyNamedVariables
 		// DivideNamedVariables
 		// pi constant
+		// asignment
 		TEST_METHOD(MoreComplexFormula)
 		{
 			double E = 200000, A = 74.5, I = 700, L = 180;
@@ -127,6 +129,99 @@ namespace ConceptTests
 			Assert::AreEqual(Comparison.get_latex_symbol().c_str(), ExpectedSymbol);
 		}
 
+		TEST_METHOD(OtherPowTests)
+		{
+			double x_d(0.84);
+			double a_d(0.75);
+			int n = 3;
+			n_var x(x_d, "x");
+			n_var a(a_d, "a");
+
+			n_var FirstResult = pow(x, n);
+			n_var SecondResult = pow(x - a, n);
+
+			const char* FirstFormula = "x^{n}";
+			const char* SecondFormula = "(x - a)^{n}";
+
+			Assert::AreEqual(FirstResult.get_latex_formula().c_str(), FirstFormula);	// passes 
+			Assert::AreEqual(SecondResult.get_latex_formula().c_str(), SecondFormula);  // fails: pow returns "x-a^{n]" TODO:Add_Parenthesis_if_required function...
+		}
+
+		TEST_METHOD(PrecedenceParenthesis)
+		{
+			double a_d = 2.11;
+			double b_d = -3.14;
+			double c_d = 1.0;
+
+			n_var a(a_d, "a");
+			n_var b(b_d, "b");
+			n_var c(c_d, "c");
+
+			n_var FirstTest = (a + b) * c;
+			n_var SecondTest = a * b + c;
+			n_var ThirdTest = a * (b + c);
+			n_var FourthTest = (a - b) / c;
+			n_var FifthTest = a / (b - c);
+
+			const char* FirstFormula = "(a + b) \\cdot c";
+			const char* SecondFormula = "a \\cdot b + c";
+			const char* ThirdFormula = "a \\cdot (b + c)";
+			const char* FourthFormula = "\\frac{a - b}{c}";
+			const char* FifthFormula = "\\frac{a}{b - c}";
+
+			Assert::AreEqual((a_d + b_d) * c_d, double(FirstTest));
+			Assert::AreEqual(a_d * b_d + c_d, double(SecondTest));
+			Assert::AreEqual(a_d * (b_d + c_d), double(ThirdTest));
+			Assert::AreEqual((a_d - b_d) / c_d, double(FourthTest));
+			Assert::AreEqual(a_d / (b_d - c_d), double(FifthTest));
+
+			Assert::AreEqual(FirstFormula, FirstTest.get_latex_symbol().c_str());
+			Assert::AreEqual(SecondFormula, SecondTest.get_latex_symbol().c_str());
+			Assert::AreEqual(ThirdFormula, ThirdTest.get_latex_symbol().c_str());
+			Assert::AreEqual(FourthFormula, FourthTest.get_latex_symbol().c_str());
+			Assert::AreEqual(FifthFormula, FifthTest.get_latex_symbol().c_str());
+		}
+		template<typename T>
+		T FirstFunction(T& nu, T& b, T& c, T& d, T& E, T& f)
+		{
+			return (pow(((nu + b) * c), d) + E) * f;
+		}
+		template<typename T>
+		T SecondFunction(T E, T b, T nu)
+		{
+			return E / (pow(b, 2) * (1 - pow(nu, 2)));
+		}
+		TEST_METHOD(ManyParenthesis)
+		{
+			double nu_d = 0.3;
+			double b_d = 24.0;
+			double c_d = 3;
+			double d_d = 11.1;
+			double E_d = 67000.0;
+			double f_d = -1;
+
+			n_var nu(nu_d, "\\nu");
+			n_var b(b_d, "b_{x}");
+			n_var c(c_d, "c");
+			n_var d(d_d, "d_{1}");
+			n_var E(E_d, "E");
+			n_var f(f_d, "f");
+
+			n_var FirstTest = FirstFunction(nu, b, c, d, E, f);
+			double FirstValue = FirstFunction(nu_d, b_d, c_d, d_d, E_d, f_d);
+
+			n_var SecondTest = SecondFunction(E, b, nu);
+			double SecondValue = SecondFunction(E_d, b_d, nu_d);
+
+			const char* FirstSymbol = "(((\\nu + b) \\cdot c)^{d} + E) \\cdot f";
+			const char* SecondSymbol = "\\frac{E}{b^{2} \\cdot (1 - \\nu^{2}}";
+
+			Assert::AreEqual(FirstValue, double(FirstTest));
+			Assert::AreEqual(SecondValue, double(SecondTest));
+			Assert::AreEqual(FirstSymbol, FirstTest.get_latex_symbol().c_str());
+			Assert::AreEqual(SecondSymbol, SecondTest.get_latex_symbol().c_str());
+		}
+
 		TEST_METHOD(OtherFunctions)
 		{
 			double dValue = -1.16;
@@ -146,7 +241,7 @@ namespace ConceptTests
 			Assert::AreEqual(LogFunction, log(x).get_latex_symbol().c_str());
 			Assert::AreEqual(SqrtFunction, sqrt(x).get_latex_symbol().c_str());
 		}
-
+		
 		TEST_METHOD(VerticalSymbols)
 		{
 			double dValue = -1.11;
@@ -230,6 +325,41 @@ namespace ConceptTests
 			Assert::AreEqual(ArcCosH, acosh(b / c).get_latex_symbol().c_str());
 			Assert::AreEqual(ArcTanH, atanh(c / b).get_latex_symbol().c_str());
 		}
+
 		// TODO: test the AssignmentIf function
+		// helper function
+		template<typename B, typename T>
+		T HelperFunction(const T& a, const T& x, int n)
+		{
+			using ConditionAssignmentPair = std::pair<std::function<B()>, std::function<T()>>;
+			std::vector<ConditionAssignmentPair> condition_list = {
+				{ [&]() -> B { return x < a; }, [&]() -> T { return T(0); } },
+				{ [&]() -> B { return x > a; }, [&]() -> T {return pow(x - a, n); } },
+				{ [&]() -> B { return x == a; }, [&]() -> T {return T(std::numeric_limits<double>::quiet_NaN()); } }
+			};
+
+			return AssignmentIf<B, T>(condition_list);
+		}
+
+		//  the test
+		TEST_METHOD(TheIfAssignment) {
+			double x_d = 0.5;
+			double a_d = 0.2;
+			double s_d = 0.0;
+
+			n_var x(x_d, "x");
+			n_var a(a_d, "a");
+			n_var s(0, "s");
+
+			int n = 3;
+
+			s = HelperFunction<BoolVariable, n_var>(a, x, n);
+			s_d = HelperFunction<bool, double>(a_d, x_d, n);
+
+			const char* LatexFormula = "s = \\begin{cases} 0 & \\mathrm{if} \\ x < a\\\\ (x-a)^{n} & \\mathrm{if} \\ x > a \\\\ N/A & \\mathrm{if} \\ x = a \\end{cases}";
+		
+			Assert::AreEqual(s_d, double(s));
+			Assert::AreEqual(s.get_latex_formula().c_str(), LatexFormula);
+		}
 	};
 }

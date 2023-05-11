@@ -3,8 +3,8 @@
 
 n_var pow(const n_var& base, double exponent) {
 	std::stringstream ss;
-	ss << base.get_latex_symbol() << "^{" << exponent << "}";
-	return n_var(std::pow(double(base), exponent), ss.str());
+	ss << add_brackets_if_needed(base, base.getLevel() > ExponentiationLevel) << "^{" << exponent << "}";
+	return n_var(std::pow(double(base), exponent), ss.str(), ExponentiationLevel);
 }
 
 n_var abs(const n_var& x) {

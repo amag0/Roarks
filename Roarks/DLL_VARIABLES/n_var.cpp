@@ -1,6 +1,6 @@
 #include "../Concept/n_var.h"
 
-n_var::n_var(double value) : value(value)
+n_var::n_var(double value, int level) : value(value), level(level)
 {
 	std::ostringstream oss;
 	oss << std::setprecision(8) << std::noshowpoint << value;
@@ -22,6 +22,7 @@ n_var& n_var::operator=(const n_var& rhs)
 {
 	if (this != &rhs) {
 		value = rhs.value;
+		level = rhs.level;
 
 		// Update latex_formula
 		latex_formula = latex_symbol + " = " + rhs.latex_symbol;
@@ -33,22 +34,24 @@ n_var& n_var::operator=(const n_var& rhs)
 
 n_var operator+(const n_var& lhs, const n_var& rhs)
 {
-	return n_var(lhs.value + rhs.value, lhs.latex_symbol + " + " + rhs.latex_symbol);
+	return n_var(lhs.value + rhs.value, lhs.latex_symbol + " + " + rhs.latex_symbol, AddSubtractLevel);
 }
 
 n_var operator-(const n_var& lhs, const n_var& rhs)
 {
-	return n_var(lhs.value - rhs.value, lhs.latex_symbol + " - " + rhs.latex_symbol);
+	return n_var(lhs.value - rhs.value, lhs.latex_symbol + " - " + rhs.latex_symbol, AddSubtractLevel);
 }
 
 n_var operator*(const n_var& lhs, const n_var& rhs)
 {
-	return n_var(lhs.value * rhs.value, lhs.latex_symbol + " \\cdot " + rhs.latex_symbol);
+	std::stringstream ss;
+	ss << add_brackets_if_needed(lhs, lhs.level > MultiplyDivideLevel) << "\\cdot" << add_brackets_if_needed(rhs, rhs.level > MultiplyDivideLevel);
+	return n_var(lhs.value * rhs.value, lhs.latex_symbol + " \\cdot " + rhs.latex_symbol, MultiplyDivideLevel);
 }
 
 n_var operator/(const n_var& lhs, const n_var& rhs)
 {
-	return n_var(lhs.value / rhs.value, "\\frac{" + lhs.latex_symbol + "}{" + rhs.latex_symbol + "}");
+	return n_var(lhs.value / rhs.value, "\\frac{" + lhs.latex_symbol + "}{" + rhs.latex_symbol + "}", MultiplyDivideLevel);
 }
 
 BoolVariable operator==(const n_var& lhs, const n_var& rhs) {
